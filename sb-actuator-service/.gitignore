@@ -6,3 +6,8 @@ bin/
 build/
 target/
 .idea
+*.iws
+*.ipr
+*.iml
+
+*~

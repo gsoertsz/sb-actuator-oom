@@ -21,12 +21,18 @@ version = '0.1.0'
 mainClassName = "hello.HelloWorldApplication"
 
 jar {
-    enabled = false
+    baseName = "gs-actuator-service"
 }
 
-bootJar {
-    launchScript()
+bootStartScripts {
+    doLast {
+        unixScript.text = unixScript.text.replace('DEFAULT_JVM_OPTS=""', 'DEFAULT_JVM_OPTS="-Xmx768m -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=9010 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.rmi.port=9010 -Djava.rmi.server.hostname=localhost"')
+    }
 }
+
+applicationDefaultJvmArgs = ["-Xmx768m", "-Dcom.sun.management.jmxremote=true", "-Dcom.sun.management.jmxremote.port=9010", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.rmi.port=9010", "-Djava.rmi.server.hostname=localhost"]
+
+applicationDefaultJvmArgs
 
 repositories {
     mavenCentral()
@@ -35,7 +41,7 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-dependencies {bv    
+dependencies {    
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     testCompile("org.springframework.boot:spring-boot-starter-test")
