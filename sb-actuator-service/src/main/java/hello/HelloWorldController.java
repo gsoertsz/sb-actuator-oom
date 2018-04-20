@@ -17,6 +17,9 @@ public class HelloWorldController {
     @GetMapping("/hello-world/{name}")
     @ResponseBody
     public Greeting sayHello(@PathVariable("name") String name) {
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) { ; }
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
 

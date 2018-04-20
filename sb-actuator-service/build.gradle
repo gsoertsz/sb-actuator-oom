@@ -22,6 +22,10 @@ jar {
     mainClassName = "hello.HelloWorldApplication"
 }
 
+bootRun {
+    jvmArgs = [ '-Xmx768m' ]
+}
+
 repositories {
     mavenCentral()
 }
