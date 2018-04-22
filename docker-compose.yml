@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+    nginx-mock:
+        build:
+            dockerfile: Dockerfile
+            context: ./nginx/
+        image: nginx-mock
+        ports:
+            - 80:80
+        container_name: nginx-mock
+    sb-actuator-service:
+        build:
+            dockerfile: Dockerfile
+            context: ./sb-actuator-service
+        image: sb-actuator-service
+        ports:
+            - 9000:9000
+            - 9010:9010
+        container_name: sb-actuator-service
+	links:
+	    - nginx-mock
