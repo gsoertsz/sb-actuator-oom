@@ -18,5 +18,5 @@ services:
             - 9000:9000
             - 9010:9010
         container_name: sb-actuator-service
-	links:
-	    - nginx-mock
+        links:
+            - nginx-mock
