@@ -26,6 +26,14 @@ Once the app is running it doesn't take long to crash with the following observa
 
 # Screenshots
 
+Below captures the largest heap occupiers
+
 ![Top of Heap at Crash](images/HeapSampleMetricsEnabled.png)
+
+Below captures the heap growth and GC/CPU activity over time
+
 ![Heap Usage leading up to Crash](images/HeapUsageOverTime.png)
+
+What we see on the console
+
 ![Console output at Crash](images/OutOfMemoryOnConsole.png)
