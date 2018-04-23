@@ -19,3 +19,13 @@
 ```
 %> docker-compose down && docker-compose up
 ```
+
+# Observations
+
+Once the app is running it doesn't take long to crash with the following observables
+
+# Screenshots
+
+![Top of Heap at Crash]("images/HeapSampleMetricsEnabled.png")
+![Heap Usage leading up to Crash]("images/HeapUsageOverTime.png")
+![Console output at Crash]("images/OutOfMemoryOnConsole.png")
