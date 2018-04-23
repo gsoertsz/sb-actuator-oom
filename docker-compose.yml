@@ -1,14 +1,6 @@
-version: '2'
+version: '2.1'
 
 services:
-    nginx-mock:
-        build:
-            dockerfile: Dockerfile
-            context: ./nginx/
-        image: nginx-mock
-        ports:
-            - 80:80
-        container_name: nginx-mock
     sb-actuator-service:
         build:
             dockerfile: Dockerfile
@@ -18,5 +10,20 @@ services:
             - 9000:9000
             - 9010:9010
         container_name: sb-actuator-service
+        healthcheck:
+          test: ["CMD", "curl", "-f", "http://localhost:9000/actuator/health"]
+          timeout: 30s
+    mocha-load-test:
+        image: node
         links:
-            - nginx-mock
+          - sb-actuator-service
+        container_name: mocha-load-test
+        depends_on:
+          - sb-actuator-service
+        volumes:
+          - ./test-load/:/src
+        environment:
+          - DEBUG=*
+          - SERVICE_HOST=sb-actuator-service
+        working_dir: /src
+        command: ["./runTest.sh"]

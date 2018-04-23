@@ -11,13 +11,16 @@ const chakram = require("chakram");
 
 const { expect } = chakram;
 
+const serviceHost = process.env.SERVICE_HOST || "localhost";
+
 describe("Base load generation suite", () => {
     describe("The hello world service", () => {
 	it("should handle large number of requests to an endpoint with variable path elements", (cb) => {
 
-	    const requests1 = _.range(0, 500000, 1).map(x => `http://localhost:9000/hello-world/${x}`);
-	    const requests2 = _.range(500001, 1000000, 1).map(x => `http://localhost:9000/hello-world/${x}`);
-	    const requests3 = _.range(1000001, 1500000, 1).map(x => `http://localhost:9000/hello-world/${x}`);
+	    const urlFromParam = (param) => `http://${serviceHost}:9000/app/hello-world/${param}`;
+
+	    const requests1 = _.range(0, 50000, 1).map(x => urlFromParam(x));
+	    // const requests2 = _.range(50001, 100000, 1).map(x => urlFromParam(x));
 	    
 	    const doBatch = (requests) => {
 		return Promise.each(requests, (url) => {
@@ -40,7 +43,10 @@ describe("Base load generation suite", () => {
 		});
 	    };
 
-	    Promise.all([doBatch(requests1), doBatch(requests2), doBatch(requests3)])
+	    Promise.all([
+		doBatch(requests1)
+		//,doBatch(requests2)
+	    ])
 		.then(results => {
 		    cb();
 		})
